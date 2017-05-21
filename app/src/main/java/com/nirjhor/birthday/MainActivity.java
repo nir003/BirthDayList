@@ -5,10 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
     public class MainActivity extends AppCompatActivity {
 
     Button add,show;
+    EditText e1,e2;
         //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +21,18 @@ import android.widget.Button;
         add = (Button)findViewById(R.id.add);
         show = (Button)findViewById(R.id.show);
 
+        e1 = (EditText) findViewById(R.id.name);
+        e2 = (EditText) findViewById(R.id.day);
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String _name = e1.getText().toString();
+                String _day = e2.getText().toString();
+
+                Toast.makeText(MainActivity.this, "Name : "+_name+"  BDay: "+_day, Toast.LENGTH_SHORT).show();
+                
 
             }
         });
