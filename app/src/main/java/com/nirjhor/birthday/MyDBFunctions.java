@@ -2,6 +2,7 @@ package com.nirjhor.birthday;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -46,5 +47,41 @@ public class MyDBFunctions extends SQLiteOpenHelper{
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
+
+        contentValues.put(Tab_Name, dataTemp.getName());
+        contentValues.put(Tab_Days,dataTemp.getDay());
+
+        sqLiteDatabase.insert(TableName,null,contentValues);
+        sqLiteDatabase.close();
+    }
+
+    //Read Data from database as string array
+
+    String[] my_Data()
+    {
+        String[] dataSet={};
+
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        String sql = "Select * from"+TableName;
+
+        Cursor cursor = sqLiteDatabase.rawQuery(sql,null);
+
+        dataSet = new String[cursor.getCount()];    //it counts the row of a database and make the string size as it counts
+
+        cursor.moveToFirst();
+
+        if(cursor.moveToFirst())
+        {
+            int counter = 0;
+
+            do {
+                dataSet[counter] = cursor.getString(cursor.getColumnIndex(Tab_Name+""));
+                counter = counter+1; //counter++
+            }while (cursor.moveToNext());
+
+        }
+
+        return dataSet; //return total dataset array.
     }
 }

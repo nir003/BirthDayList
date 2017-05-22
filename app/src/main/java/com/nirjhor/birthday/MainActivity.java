@@ -24,12 +24,19 @@ import android.widget.Toast;
         e1 = (EditText) findViewById(R.id.name);
         e2 = (EditText) findViewById(R.id.day);
 
+        final MyDBFunctions myDBFunctions = new MyDBFunctions(getApplicationContext());
+
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String _name = e1.getText().toString();
                 String _day = e2.getText().toString();
+
+                DataTemp dataTemp = new DataTemp(_name,_day);
+
+                myDBFunctions.addingDataToTable(dataTemp);
 
                 Toast.makeText(MainActivity.this, "Name : "+_name+"  BDay: "+_day, Toast.LENGTH_SHORT).show();
                 
